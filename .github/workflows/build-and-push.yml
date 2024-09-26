@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    uses: manmehta0/shared-actions-repo/.github/workflows/build-and-push.yml@main
+    uses: shared-actions-repo/.github/workflows/build-and-push.yml@main
     with:
       ecr-repo-uri: ${{ secrets.ECR_API_REPO_URI }}
       dockerfile-path: ./Dockerfile
