@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  labels:
+    app: api
+spec:
+  replicas: 2                      # Number of replicas for the API
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api-container
+          image: <your-ecr-repo>/api:latest    # Replace with your ECR repository URL
+          ports:
+            - containerPort: 5000              # API container port
+          env:
+            - name: CLIENT_API_KEY             # Environment variable for API key
+              valueFrom:
+                secretKeyRef:
+                  name: api-secrets            # Kubernetes Secret for storing API keys
+                  key: CLIENT_API_KEY
+            - name: OPEN_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: api-secrets
+                  key: OPEN_API_KEY
