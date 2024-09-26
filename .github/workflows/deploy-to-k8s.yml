@@ -1,0 +1,14 @@
+name: Deploy API to Kubernetes
+
+on:
+  workflow_run:
+    workflows: ["Build and Push API Docker Image"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    uses: shared-actions-repo/.github/workflows/deploy-to-k8s.yml@main
+    with:
+      deployment-file: ./k8s/api-deployment.yml
+      service-file: ./k8s/service.yml
